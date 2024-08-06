@@ -4,7 +4,8 @@ const router = express.Router();
 
 const authController = require("../controllers/ngo/auth/authController");
 
-router.post("/user-create", authController.signUp);
+router.post("/sign-up", authController.signUp);
+router.get("/sign-in", authController.signIn )
 
 
 module.exports = router;

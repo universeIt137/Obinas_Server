@@ -1,7 +1,7 @@
 const userModel = require("../../../models/ngo/userModel");
 const bcrypt = require('bcrypt');
-const {hash} = require("bcrypt");
 const saltRounds = 10;
+const jwt = require("jsonwebtoken");
 
 class authClass {
     signUp = async (req,res)=>{
@@ -55,6 +55,45 @@ class authClass {
             });
         }
     };
+    signIn = async (req,res)=>{
+        try {
+            require("dotenv").config();
+            const key = process.env.AUTH_SECRET;
+            let password = req.body.password;
+            let email = req.body.email;
+            let user = await userModel.findOne({email:email});
+            if(!user){
+                return res.status(404).json({
+                    status:"fail",
+                    msg:"User not found"
+                });
+            }
+            const isMatch = await bcrypt.compare(password, user.password);
+            let payload = {
+                id : user._id,
+                role : user.role,
+                email : user.email,
+                exp: Math.floor(Date.now() / 1000 + 24 * 60 * 60),
+            }
+            const token = jwt.sign(payload,key);
+            if (isMatch){
+                return res.status(201).json({
+                    status:"success",
+                    token : token
+                });
+            }else {
+                return res.status(404).json({
+                    status:"fail",
+                    msg:"User not found"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status:"fail",
+                msg : "something went worng"
+            });
+        }
+    }
 }
 
 const authController = new authClass();
