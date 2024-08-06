@@ -1,6 +1,5 @@
 const concernModel = require("../../../models/ngo/ourConcernModel");
 const {parseUserToken} = require("../../../helper/helper");
-const mediaModel = require("../../../models/ngo/mediaModel");
 
 class concernClass  {
     postConcern = async (req,res)=>{
@@ -8,7 +7,7 @@ class concernClass  {
         try {
             let reqBody = req.body;
             if (userToken.role==="super_admin"){
-                let data = await mediaModel.create(reqBody);
+                let data = await concernModel.create(reqBody);
                 return res.status(201).json({
                     status : "success",
                     msg : data

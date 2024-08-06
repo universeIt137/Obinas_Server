@@ -8,6 +8,8 @@ const mediaController = require("../controllers/ngo/media/mediaController");
 
 const concernController = require("../controllers/ngo/concern/concernController");
 
+const aboutController = require("../controllers/ngo/aboutUs/aboutUsController");
+
 const router = express.Router();
 
 // news api
@@ -23,6 +25,10 @@ router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMed
 // concern api
 
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern );
+
+// about api
+
+router.post("/post-about" , authMiddleware.isSuperAdmin, aboutController.postAbout );
 
 
 module.exports = router;
