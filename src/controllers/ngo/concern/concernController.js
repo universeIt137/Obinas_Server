@@ -35,7 +35,6 @@ class concernClass  {
             };
             let reqBody = req.body;
             let data = await concernModel.findOne(filter);
-            console.log(data);
             if (!data) return res.status(404).json({
                 status :  "fail",
                 msg : "Data not found"
