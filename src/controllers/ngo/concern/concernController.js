@@ -1,13 +1,13 @@
-const mediaModel = require("../../../models/ngo/mediaModel");
+const concernModel = require("../../../models/ngo/ourConcernModel");
 const {parseUserToken} = require("../../../helper/helper");
 
-class mediaClass {
-    postMedia = async (req,res)=>{
+class concernClass  {
+    postConcern = async (req,res)=>{
         let userToken = parseUserToken(req);
         try {
             let reqBody = req.body;
             if (userToken.role==="super_admin"){
-                let data = await mediaModel.create(reqBody);
+                let data = await concernModel.create(reqBody);
                 return res.status(201).json({
                     status : "success",
                     msg : data
@@ -28,6 +28,6 @@ class mediaClass {
 
 }
 
-const mediaController = new mediaClass();
+const concernController = new concernClass();
 
-module.exports = mediaController
+module.exports = concernController;
