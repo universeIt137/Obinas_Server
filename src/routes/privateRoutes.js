@@ -33,6 +33,7 @@ router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMed
 
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
 router.put("/update-concern/:id", authMiddleware.isSuperAdmin, concernController.updateConcern );
+router.delete("/delete-concern/:id", authMiddleware.isSuperAdmin, concernController.deleteConcern );
 
 // About api
 
