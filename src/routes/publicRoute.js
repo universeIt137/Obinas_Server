@@ -24,6 +24,7 @@ router.get("/sign-in", authController.signIn );
 // user route
 
 router.get("/get-profile", authMiddleware.isValidUser, userController.getProfile );
+router.put("/update-profile", authMiddleware.isValidUser, userController.updateUserProfile );
 
 
 module.exports = router;

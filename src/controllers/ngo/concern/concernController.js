@@ -6,7 +6,7 @@ class concernClass  {
         let userToken = parseUserToken(req);
         try {
             let reqBody = req.body;
-            if (userToken.role==="super_admin"){
+            if (userToken.role==="super-admin"){
                 let data = await concernModel.create(reqBody);
                 return res.status(201).json({
                     status : "success",

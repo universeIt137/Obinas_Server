@@ -5,7 +5,7 @@ class aboutClass {
     postAbout = async (req,res)=>{
         const userToken = parseUserToken(req);
         try {
-            if (userToken.role==="super_admin"){
+            if (userToken.role==="super-admin"){
                 let reqBody = req.body;
                 let data = await aboutUsModel.create(reqBody);
                 return res.status(201).json({
