@@ -14,6 +14,10 @@ const userController = require("../controllers/ngo/users/userController");
 
 const authMiddleware = require("../middlewares/authMiddleware");
 
+// about controller
+
+const aboutController = require("../controllers/ngo/aboutUs/aboutUsController")
+
 
 //auth route
 
@@ -21,10 +25,14 @@ router.post("/sign-up", authController.signUp);
 router.get("/sign-in", authController.signIn );
 
 
-// user route
+// user api
 
 router.get("/get-profile", authMiddleware.isValidUser, userController.getProfile );
 router.put("/update-profile", authMiddleware.isValidUser, userController.updateUserProfile );
+
+// about api
+
+router.get("/all-about-data", aboutController.allAboutData );
 
 
 module.exports = router;
