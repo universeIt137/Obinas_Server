@@ -26,6 +26,40 @@ class concernClass  {
         }
     };
 
+    updateConcern = async (req,res)=>{
+        let userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let filter = {
+                _id : id
+            };
+            let reqBody = req.body;
+            let data = await concernModel.findOne(filter);
+            console.log(data);
+            if (!data) return res.status(404).json({
+                status :  "fail",
+                msg : "Data not found"
+            });
+            if (userToken.role==="super-admin"){
+                await concernModel.findByIdAndUpdate(filter,reqBody);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Update successfully"
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : " Permission not allow "
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    }
+
 }
 
 const concernController = new concernClass();
