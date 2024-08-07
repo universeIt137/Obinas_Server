@@ -89,7 +89,29 @@ class concernClass  {
                 msg : e.toString()
             });
         }
-    }
+    };
+
+    getAllConcern = async (req,res)=>{
+        try {
+            let data = await concernModel.find();
+            if (!data){
+                return res.status(404).json({
+                    status:"fail",
+                    msg : "Data not found"
+                });
+            }else {
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 }
 
