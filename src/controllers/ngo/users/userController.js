@@ -56,8 +56,7 @@ class userClass {
             });
         }
     };
-
-        deleteUser = async (req,res)=>{
+    deleteUser = async (req,res)=>{
         const userToken = parseUserToken(req);
         let userEmail = userToken.email;
         try {
@@ -87,7 +86,30 @@ class userClass {
             msg : `Something went worng ${e}`
         });
         }
-    }
+    };
+
+    getAllUser = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            if (userToken.role==="super-admin"){
+                let data = await userModel.find();
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not allow"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status:"fail",
+                msg : `Something went worng ${e}`
+            });
+        }
+    };
 }
 
 const userController = new userClass();

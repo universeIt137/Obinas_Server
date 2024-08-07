@@ -27,19 +27,20 @@ router.post("/post-news" , authMiddleware.isSuperAdmin, newsController.postNews 
 
 // Media api
 
-router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia );
+router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia);
 
 // Concern api
 
-router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern );
+router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
 
 // About api
 
-router.post("/post-about" , authMiddleware.isSuperAdmin, aboutController.postAbout );
+router.post("/post-about" , authMiddleware.isSuperAdmin, aboutController.postAbout);
 
 // User api
 
-router.delete("/user-delete" , authMiddleware.isSuperAdmin, userController.deleteUser );
+router.delete("/user-delete" , authMiddleware.isSuperAdmin, userController.deleteUser);
+router.get("/all-user", authMiddleware.isSuperAdmin, userController.getAllUser);
 
 
 module.exports = router;
