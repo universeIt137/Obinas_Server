@@ -24,6 +24,40 @@ class aboutClass {
                 msg : "something went worng"
             });
         }
+    };
+    updateAbout = async (req,res)=>{
+        let userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let filter = {
+                _id : id
+            };
+            let reqBody = req.body;
+            let aboutData = await aboutUsModel.findById(filter);
+            if (!aboutData) return res.status(404).json({
+                status : "fail",
+                msg :  "About data not found"
+            });
+
+            if (userToken.role==="super-admin"){
+                await aboutUsModel.findByIdAndUpdate(filter,reqBody);
+                return res.status(200).json({
+                    status : "success",
+                    data : "Update successfully"
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not granted"
+                });
+            }
+
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : "Something went worng"
+            });
+        }
     }
 }
 
