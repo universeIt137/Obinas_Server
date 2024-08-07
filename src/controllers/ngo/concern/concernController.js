@@ -113,6 +113,34 @@ class concernClass  {
         }
     };
 
+    getAllConcernDataAdmin = async (req,res)=>{
+        const userToken = parseUserToken(req)
+        try {
+            let data = await concernModel.find();
+            if (!data){
+                return res.status(404).json({
+                    status:"fail",
+                    msg : "Data not found"
+                });
+            }else if (userToken.role==="super-admin") {
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                })
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
+
 }
 
 const concernController = new concernClass();
