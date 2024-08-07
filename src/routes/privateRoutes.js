@@ -32,6 +32,7 @@ router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMed
 // Concern api
 
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
+router.put("/update-concern/:id", authMiddleware.isSuperAdmin, concernController.updateConcern );
 
 // About api
 
