@@ -58,7 +58,40 @@ class aboutClass {
                 msg : "Something went worng"
             });
         }
-    }
+    };
+
+    deleteAbout = async (req,res)=>{
+        let userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let filter = {
+                _id: id
+            };
+            let data = await aboutUsModel.findById(filter);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Data not found"
+            });
+
+            if (userToken.role==="super-admin"){
+                await aboutUsModel.findByIdAndDelete(filter);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Data delete successfully"
+                });
+            }else{
+                return res.status(403).json({
+                    status : "success",
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : `Something went worng`
+            });
+        }
+    };
 }
 
 const aboutController = new aboutClass();
