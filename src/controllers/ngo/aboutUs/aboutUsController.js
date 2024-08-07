@@ -59,7 +59,6 @@ class aboutClass {
             });
         }
     };
-
     deleteAbout = async (req,res)=>{
         let userToken = parseUserToken(req);
         try {
@@ -92,6 +91,43 @@ class aboutClass {
             });
         }
     };
+    allAboutData = async (req,res)=>{
+        try {
+            let data = await aboutUsModel.find();
+            return res.status(200).json({
+                status : "success",
+                data : data
+            });
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : "Something went worng"
+            });
+        }
+    };
+    allAboutDataAdmin = async (req,res)=>{
+        const parseToken = parseUserToken(req);
+        try {
+            if (parseToken.role==="super-admin"){
+                let data = await aboutUsModel.find();
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not allow"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : "Something went worng"
+            });
+        }
+    };
+
 }
 
 const aboutController = new aboutClass();
