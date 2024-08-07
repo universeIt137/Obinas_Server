@@ -1,34 +1,45 @@
 const express = require("express");
 
+// News Controller
 const newsController = require("../controllers/ngo/news/newsController");
 
+// Auth Middleware
 const authMiddleware = require("../middlewares/authMiddleware");
 
+// Media Controller
 const mediaController = require("../controllers/ngo/media/mediaController");
 
+// Concern Controller
 const concernController = require("../controllers/ngo/concern/concernController");
 
+//About Controller
 const aboutController = require("../controllers/ngo/aboutUs/aboutUsController");
+
+//User Controller
+const userController = require("../controllers/ngo/users/userController");
 
 const router = express.Router();
 
-// news api
+// News api
 
 router.post("/post-news" , authMiddleware.isSuperAdmin, newsController.postNews );
 
 
-
-// media api
+// Media api
 
 router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia );
 
-// concern api
+// Concern api
 
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern );
 
-// about api
+// About api
 
 router.post("/post-about" , authMiddleware.isSuperAdmin, aboutController.postAbout );
+
+// User api
+
+router.delete("/user-delete" , authMiddleware.isSuperAdmin, userController.deleteUser );
 
 
 module.exports = router;

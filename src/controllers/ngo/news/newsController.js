@@ -17,7 +17,7 @@ class newsClass {
                     msg : "Keyword required"
                 });
             }else {
-                if ((userToken.role==="super_admin") ){
+                if ((userToken.role==="super-admin") ){
                     let reqBody = req.body;
                     let data = await newsModel.create(reqBody);
                     return res.status(201).json({

@@ -6,7 +6,7 @@ class mediaClass {
         let userToken = parseUserToken(req);
         try {
             let reqBody = req.body;
-            if (userToken.role==="super_admin"){
+            if (userToken.role==="super-admin"){
                 let data = await mediaModel.create(reqBody);
                 return res.status(201).json({
                     status : "success",
