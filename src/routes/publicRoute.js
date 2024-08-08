@@ -21,6 +21,9 @@ const concernController = require("../controllers/ngo/concern/concernController"
 // news controller
 const newsController = require("../controllers/ngo/news/newsController");
 
+// media controller
+const mediaController = require("../controllers/ngo/media/mediaController");
+
 //auth api
 router.post("/sign-up", authController.signUp);
 router.get("/sign-in", authController.signIn );
@@ -38,6 +41,9 @@ router.get("/all-concern-data", concernController.getAllConcern);
 
 // news api
 router.get("/all-news", newsController.getAllNews );
+
+// media api
+router.get("/get-all-media" , mediaController.getAllMedia );
 
 
 module.exports = router;
