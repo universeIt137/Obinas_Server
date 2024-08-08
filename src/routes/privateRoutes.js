@@ -21,6 +21,9 @@ const userController = require("../controllers/ngo/users/userController");
 // contact us controller
 const contactUsController = require("../controllers/ngo/contactUs/contactUsController");
 
+// job circular controller
+const jobCircularController = require("../controllers/ngo/jobCircular/jobCircularController");
+
 const router = express.Router();
 
 // News api
@@ -32,12 +35,14 @@ router.get("/get-all-data-admin", authMiddleware.isSuperAdmin, newsController.ge
 
 
 // Media api
+
 router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia);
 router.put("/update-media/:id" , authMiddleware.isSuperAdmin, mediaController.updateMedia);
 router.delete("/delete-media/:id" , authMiddleware.isSuperAdmin, mediaController.deleteMedia);
 router.get("/media-data-admin", authMiddleware.isSuperAdmin, mediaController.getAllMediaAdmin);
 
 // Concern api
+
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
 router.put("/update-concern/:id", authMiddleware.isSuperAdmin, concernController.updateConcern );
 router.delete("/delete-concern/:id", authMiddleware.isSuperAdmin, concernController.deleteConcern );
@@ -61,7 +66,11 @@ router.get("/all-user", authMiddleware.isSuperAdmin, userController.getAllUser);
 router.post("/create-contact" , authMiddleware.isValidUser, contactUsController.createContact);
 router.get("/get-all-contact", authMiddleware.isValidUser, contactUsController.getAllContact);
 router.get("/get-single-contact/:id" , authMiddleware.isValidUser, contactUsController.getSingleContact);
-router.delete("/delete-contact/:id" , authMiddleware.isAdmin, contactUsController.deleteContact);
+router.delete("/delete-contact/:id" , authMiddleware.isValidUser, contactUsController.deleteContact);
+
+// job circular api
+
+router.post("/post-job-circular", authMiddleware.isValidUser, jobCircularController.postJobCircular);
 
 
 module.exports = router;
