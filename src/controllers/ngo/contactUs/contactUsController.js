@@ -52,6 +52,35 @@ class contactClass {
             });
         }
     };
+    getSingleContact = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            const id = req.params.id;
+            let matchStage = { _id : id };
+            const data = await contactUsModel.findById(matchStage);
+            if (!data) return res.status(404).json({
+                status : 'fail',
+                msg : "Contact data not found "
+            });
+            if ( userToken.role==="admin" || userToken.role==="user" ){
+                let data = await contactUsModel.findById(matchStage);
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }else {
+                return res.status(403).json({
+                    status : 'fail',
+                    msg : "Permission not allow"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    }
 
 }
 
