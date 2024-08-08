@@ -59,6 +59,7 @@ router.get("/all-user", authMiddleware.isSuperAdmin, userController.getAllUser);
 // contact us api
 
 router.post("/create-contact" , authMiddleware.isValidUser, contactUsController.createContact);
+router.get("/get-all-contact", authMiddleware.isValidUser, contactUsController.getAllContact);
 
 
 module.exports = router;
