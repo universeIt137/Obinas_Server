@@ -18,6 +18,9 @@ const aboutController = require("../controllers/ngo/aboutUs/aboutUsController");
 //User Controller
 const userController = require("../controllers/ngo/users/userController");
 
+// contact us controller
+const contactUsController = require("../controllers/ngo/contactUs/contactUsController");
+
 const router = express.Router();
 
 // News api
@@ -51,6 +54,11 @@ router.get("/about-data-admin", authMiddleware.isSuperAdmin, aboutController.all
 
 router.delete("/user-delete" , authMiddleware.isSuperAdmin, userController.deleteUser);
 router.get("/all-user", authMiddleware.isSuperAdmin, userController.getAllUser);
+
+
+// contact us api
+
+router.post("/create-contact" , authMiddleware.isValidUser, contactUsController.createContact);
 
 
 module.exports = router;
