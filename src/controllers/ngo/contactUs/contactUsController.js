@@ -80,7 +80,36 @@ class contactClass {
                 msg : e.toString()
             });
         }
-    }
+    };
+    deleteContact = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let matchStage = { _id: id };
+            let data = await contactUsModel.findById(matchStage);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Contact data not found"
+            });
+            if (userToken.role==="admin"){
+                await contactUsModel.findByIdAndDelete(matchStage);
+                return res.status(200).json({
+                    status:"success",
+                    msg : "delete successfully"
+                })
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 }
 
