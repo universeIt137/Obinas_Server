@@ -80,6 +80,7 @@ router.delete("/job-circular-delete/:id" , authMiddleware.isValidUser, jobCircul
 // notice api
 
 router.post("/post-notice", authMiddleware.isValidUser, noticeController.postNotice);
+router.delete("/delete-notice/:id", authMiddleware.isValidUser, noticeController.deleteNotice);
 
 
 module.exports = router;
