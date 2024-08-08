@@ -48,6 +48,30 @@ class jobCircularClass {
             });
         }
     };
+    
+    getSingleJobCircular = async (req,res)=>{
+        try {
+            let id = req.params.id;
+            let matchStage = { _id : id };
+            let data = await jobCircularModel.findById(matchStage);
+            if (!data) {
+                return res.status(404).json({
+                    status : "fail",
+                    msg : "job circular not found"
+                })
+            }else {
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status:"fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 }
 
