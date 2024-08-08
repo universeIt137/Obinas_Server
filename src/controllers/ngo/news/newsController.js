@@ -123,7 +123,6 @@ class newsClass {
             });
         }
     };
-
     getAllNewsAdmin = async (req,res)=>{
         try {
             let userToken = parseUserToken(req);
