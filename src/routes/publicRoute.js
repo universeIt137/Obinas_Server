@@ -50,7 +50,8 @@ router.get("/get-all-media" , mediaController.getAllMedia );
 
 // job circular api
 
-router.get("/get-all-job-circular", jobCircularController.getAllJobCircular)
+router.get("/get-all-job-circular", jobCircularController.getAllJobCircular);
+router.get("/single-job-circular/:id", jobCircularController.getSingleJobCircular );
 
 
 module.exports = router;
