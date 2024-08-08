@@ -18,7 +18,10 @@ const aboutController = require("../controllers/ngo/aboutUs/aboutUsController");
 // concern controller
 const concernController = require("../controllers/ngo/concern/concernController");
 
-//auth route
+// news controller
+const newsController = require("../controllers/ngo/news/newsController");
+
+//auth api
 router.post("/sign-up", authController.signUp);
 router.get("/sign-in", authController.signIn );
 
@@ -31,8 +34,10 @@ router.put("/update-profile", authMiddleware.isValidUser, userController.updateU
 router.get("/all-about-data", aboutController.allAboutData );
 
 // concern api
-
 router.get("/all-concern-data", concernController.getAllConcern);
+
+// news api
+router.get("/all-news", newsController.getAllNews );
 
 
 module.exports = router;
