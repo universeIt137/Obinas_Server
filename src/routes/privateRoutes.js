@@ -23,6 +23,7 @@ const router = express.Router();
 // News api
 
 router.post("/post-news" , authMiddleware.isSuperAdmin, newsController.postNews );
+router.put("/update-news/:id" , authMiddleware.isSuperAdmin, newsController.updateNews);
 
 
 // Media api
