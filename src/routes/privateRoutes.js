@@ -60,6 +60,7 @@ router.get("/all-user", authMiddleware.isSuperAdmin, userController.getAllUser);
 
 router.post("/create-contact" , authMiddleware.isValidUser, contactUsController.createContact);
 router.get("/get-all-contact", authMiddleware.isValidUser, contactUsController.getAllContact);
+router.get("/get-single-contact/:id" , authMiddleware.isValidUser, contactUsController.getSingleContact);
 
 
 module.exports = router;
