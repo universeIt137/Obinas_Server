@@ -71,6 +71,7 @@ router.delete("/delete-contact/:id" , authMiddleware.isValidUser, contactUsContr
 // job circular api
 
 router.post("/post-job-circular", authMiddleware.isValidUser, jobCircularController.postJobCircular);
+router.delete("/job-circular-delete/:id" , authMiddleware.isValidUser, jobCircularController.deleteJobCircular);
 
 
 module.exports = router;
