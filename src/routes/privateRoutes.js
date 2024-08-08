@@ -31,6 +31,7 @@ router.get("/get-all-data-admin", authMiddleware.isSuperAdmin, newsController.ge
 // Media api
 router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia);
 router.put("/update-media/:id" , authMiddleware.isSuperAdmin, mediaController.updateMedia);
+router.delete("/delete-media/:id" , authMiddleware.isSuperAdmin, mediaController.deleteMedia);
 
 // Concern api
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);

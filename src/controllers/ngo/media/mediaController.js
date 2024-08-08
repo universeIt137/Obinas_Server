@@ -61,7 +61,37 @@ class mediaClass {
             });
         }
     };
-
+    deleteMedia = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let matchStage = {
+                _id: id
+            };
+            let data = await mediaModel.findById(matchStage);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Data not found"
+            });
+            if (userToken.role==="super-admin"){
+                await mediaModel.findByIdAndDelete(matchStage);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Delete successfully"
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not allow"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 
 
