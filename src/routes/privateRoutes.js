@@ -24,6 +24,10 @@ const contactUsController = require("../controllers/ngo/contactUs/contactUsContr
 // job circular controller
 const jobCircularController = require("../controllers/ngo/jobCircular/jobCircularController");
 
+// notice controller
+
+const noticeController = require("../controllers/ngo/notice/noticeController");
+
 const router = express.Router();
 
 // News api
@@ -72,6 +76,10 @@ router.delete("/delete-contact/:id" , authMiddleware.isValidUser, contactUsContr
 
 router.post("/post-job-circular", authMiddleware.isValidUser, jobCircularController.postJobCircular);
 router.delete("/job-circular-delete/:id" , authMiddleware.isValidUser, jobCircularController.deleteJobCircular);
+
+// notice api
+
+router.post("/post-notice", authMiddleware.isValidUser, noticeController.postNotice);
 
 
 module.exports = router;
