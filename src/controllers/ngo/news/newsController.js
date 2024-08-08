@@ -70,7 +70,39 @@ class newsClass {
                 msg : e.toString()
             });
         }
-    }
+    };
+
+    deleteNews = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            const id = req.params.id;
+            let matchStage = {
+                _id: id
+            };
+            const data = await newsModel.findById(matchStage);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Data not found "
+            });
+            if (userToken.role==="super-admin"){
+                await newsModel.findByIdAndDelete(matchStage);
+                return res.status(200).json({
+                    status : 'success',
+                    msg : "Delete successfully"
+                });
+            }else {
+                return res.status(500).json({
+                    status : "fail",
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e){
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 }
 
