@@ -68,6 +68,36 @@ class noticeClass {
           });
       }
     };
+
+    deleteNotice = async (req,res)=>{
+        const userToken = parseUserToken(req)
+        try {
+            let id = req.params.id;
+            let matchStage = { _id: id };
+            let data = await noticeModel.findById(matchStage);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Notice not found"
+            });
+            if (userToken.role==="admin"){
+                await noticeModel.findByIdAndDelete(matchStage);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Notice delete successfully"
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 }
 
 const noticeController = new noticeClass();
