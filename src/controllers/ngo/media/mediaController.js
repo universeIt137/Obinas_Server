@@ -92,6 +92,58 @@ class mediaClass {
             });
         }
     };
+    
+    getAllMedia = async (req,res)=>{
+        try {
+            let data = await mediaModel.find();
+            if ( data.length===0 ) {
+                return res.status(404).json({
+                    status : 'fail',
+                    msg : "Data not found"
+                });
+            }else {
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }
+
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
+
+    getAllMediaAdmin = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            let data = await mediaModel.find();
+            if (data.length===0){
+                return res.status(404).json({
+                    status : "fail",
+                    msg : "Data not found"
+                });
+            }else if ( userToken.role==="super-admin" ){
+                let data = await mediaModel.find();
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }else {
+                return res.status(500).json({
+                    status : 'fail',
+                    msg : "Permission not granted"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
 
 
 

@@ -32,6 +32,7 @@ router.get("/get-all-data-admin", authMiddleware.isSuperAdmin, newsController.ge
 router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia);
 router.put("/update-media/:id" , authMiddleware.isSuperAdmin, mediaController.updateMedia);
 router.delete("/delete-media/:id" , authMiddleware.isSuperAdmin, mediaController.deleteMedia);
+router.get("/media-data-admin", authMiddleware.isSuperAdmin, mediaController.getAllMediaAdmin);
 
 // Concern api
 router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
