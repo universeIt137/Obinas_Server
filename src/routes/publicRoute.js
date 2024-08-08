@@ -24,6 +24,9 @@ const newsController = require("../controllers/ngo/news/newsController");
 // media controller
 const mediaController = require("../controllers/ngo/media/mediaController");
 
+// job circular controller
+const jobCircularController = require("../controllers/ngo/jobCircular/jobCircularController");
+
 //auth api
 router.post("/sign-up", authController.signUp);
 router.get("/sign-in", authController.signIn );
@@ -44,6 +47,10 @@ router.get("/all-news", newsController.getAllNews );
 
 // media api
 router.get("/get-all-media" , mediaController.getAllMedia );
+
+// job circular api
+
+router.get("/get-all-job-circular", jobCircularController.getAllJobCircular)
 
 
 module.exports = router;
