@@ -104,6 +104,28 @@ class newsClass {
         }
     };
 
+    getAllNews = async (req,res)=>{
+        try {
+            let data = await newsModel.find();
+            if ( data.length===0 ){
+                return res.status(404).json({
+                    status : "fail",
+                    msg : "Data not found"
+                });
+            }else {
+                return res.status(200).json({
+                    status : 'success',
+                    data : data
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
+
 }
 
 const newsController = new newsClass();
