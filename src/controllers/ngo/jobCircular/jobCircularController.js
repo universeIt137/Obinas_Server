@@ -73,6 +73,36 @@ class jobCircularClass {
         }
     };
 
+    deleteJobCircular = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let filter = { _id: id };
+            let data = await jobCircularModel.findById(filter);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Job circular not found"
+            });
+            if (userToken.role==="admin"){
+                await jobCircularModel.findByIdAndDelete(filter);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Job circular delete successfully "
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not allow"
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    }
+
 }
 
 const jobCircularController = new jobCircularClass();
