@@ -71,7 +71,6 @@ class newsClass {
             });
         }
     };
-
     deleteNews = async (req,res)=>{
         const userToken = parseUserToken(req);
         try {
@@ -103,7 +102,6 @@ class newsClass {
             });
         }
     };
-
     getAllNews = async (req,res)=>{
         try {
             let data = await newsModel.find();
@@ -125,6 +123,34 @@ class newsClass {
             });
         }
     };
+
+    getAllNewsAdmin = async (req,res)=>{
+        try {
+            let userToken = parseUserToken(req);
+            let data = await newsModel.find();
+            if ( data.length===0 ) return res.status(404).json({
+                status : 'fail',
+                msg : "Data not found"
+            });
+            if (userToken.role==="super-admin"){
+                let data = await newsModel.find();
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }else {
+                return res.status(403).json({
+                    status : "fail",
+                    msg : "Permission not allow "
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : 'fail',
+                msg : e.toString()
+            });
+        }
+    }
 
 }
 

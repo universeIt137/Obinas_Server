@@ -25,6 +25,7 @@ const router = express.Router();
 router.post("/post-news" , authMiddleware.isSuperAdmin, newsController.postNews );
 router.put("/update-news/:id" , authMiddleware.isSuperAdmin, newsController.updateNews);
 router.delete("/delete-news/:id", authMiddleware.isSuperAdmin, newsController.deleteNews);
+router.get("/get-all-data-admin", authMiddleware.isSuperAdmin, newsController.getAllNewsAdmin);
 
 
 // Media api
