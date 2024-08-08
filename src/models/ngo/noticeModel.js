@@ -22,3 +22,5 @@ const noticeSchema = new Schema({
 });
 
 const noticeModel = model("notices",noticeSchema);
+
+module.exports = noticeModel;
