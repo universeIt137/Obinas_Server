@@ -32,6 +32,10 @@ const noticeController = require("../controllers/ngo/notice/noticeController");
 
 const serviceController = require("../controllers/ngo/service/serviceController");
 
+// applay service controller
+
+const applayServiceController = require("../controllers/ngo/applayService/applayServiceController");
+
 const router = express.Router();
 
 // News api
@@ -90,6 +94,9 @@ router.delete("/delete-notice/:id", authMiddleware.isValidUser, noticeController
 
 router.post("/create-service", authMiddleware.isValidUser, serviceController.createService);
 router.delete("/delete-service/:id" , authMiddleware.isValidUser, serviceController.deleteService);
+
+// applay service api
+
 
 
 module.exports = router;
