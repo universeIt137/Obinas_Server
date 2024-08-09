@@ -31,6 +31,10 @@ const jobCircularController = require("../controllers/ngo/jobCircular/jobCircula
 
 const noticeController = require("../controllers/ngo/notice/noticeController");
 
+// service controller
+
+const serviceController = require("../controllers/ngo/service/serviceController");
+
 
 //auth api
 router.post("/sign-up", authController.signUp);
@@ -63,5 +67,8 @@ router.get("/single-job-circular/:id", jobCircularController.getSingleJobCircula
 router.get("/get-all-notice", noticeController.getAllNotice);
 router.get("/single-notice/:id", noticeController.getSingleNotice );
 
+// service api
+
+router.get("/get-all-service", serviceController.getAllService );
 
 module.exports = router;
