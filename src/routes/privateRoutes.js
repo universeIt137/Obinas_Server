@@ -97,6 +97,7 @@ router.delete("/delete-service/:id" , authMiddleware.isValidUser, serviceControl
 
 // applay service api
 
+router.post("/applay-service", authMiddleware.isValidUser, applayServiceController.applayServiceCreate);
 
 
 module.exports = router;
