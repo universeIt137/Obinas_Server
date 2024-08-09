@@ -35,6 +35,7 @@ const serviceController = require("../controllers/ngo/service/serviceController"
 // applay service controller
 
 const applayServiceController = require("../controllers/ngo/applayService/applayServiceController");
+const {isValidUser} = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
@@ -98,6 +99,6 @@ router.delete("/delete-service/:id" , authMiddleware.isValidUser, serviceControl
 // applay service api
 
 router.post("/applay-service", authMiddleware.isValidUser, applayServiceController.applayServiceCreate);
-
+router.get("/get-all-applay-service", authMiddleware.isValidUser, applayServiceController.getAllApplayService);
 
 module.exports = router;
