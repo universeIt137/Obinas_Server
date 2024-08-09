@@ -70,5 +70,7 @@ router.get("/single-notice/:id", noticeController.getSingleNotice );
 // service api
 
 router.get("/get-all-service", serviceController.getAllService );
+router.get("/get-single-service/:id", serviceController.getSingleService );
+
 
 module.exports = router;

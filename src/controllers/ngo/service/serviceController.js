@@ -45,7 +45,30 @@ class serviceClass {
 
         }
     };
-
+    getSingleService = async (req,res)=>{
+        try {
+            let id = req.params.id;
+            let filter = { _id : id };
+            let data = await serviceModel.findById(filter);
+            if (!data){
+                return res.status(404).json({
+                    status : "fail",
+                    msg : "Service not found"
+                });
+            }else {
+                return res.status(200).json({
+                    status : "success",
+                    data : data
+                });
+            }
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
+    
 
 }
 
