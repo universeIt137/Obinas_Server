@@ -46,17 +46,13 @@ router.delete("/delete-news/:id", authMiddleware.isValidUser, newsController.del
 
 // Media api
 
-router.post("/post-media" , authMiddleware.isSuperAdmin, mediaController.postMedia);
-router.put("/update-media/:id" , authMiddleware.isSuperAdmin, mediaController.updateMedia);
-router.delete("/delete-media/:id" , authMiddleware.isSuperAdmin, mediaController.deleteMedia);
-router.get("/media-data-admin", authMiddleware.isSuperAdmin, mediaController.getAllMediaAdmin);
+router.post("/post-media" , authMiddleware.isValidUser, mediaController.postMedia);
+router.delete("/delete-media/:id" , authMiddleware.isValidUser, mediaController.deleteMedia);
 
 // Concern api
 
-router.post("/post-concern" , authMiddleware.isSuperAdmin, concernController.postConcern);
-router.put("/update-concern/:id", authMiddleware.isSuperAdmin, concernController.updateConcern );
-router.delete("/delete-concern/:id", authMiddleware.isSuperAdmin, concernController.deleteConcern );
-router.get("/all-concern-data-admin" ,  authMiddleware.isSuperAdmin, concernController.getAllConcernDataAdmin);
+router.post("/post-concern" , authMiddleware.isValidUser, concernController.postConcern);
+router.delete("/delete-concern/:id", authMiddleware.isValidUser, concernController.deleteConcern );
 
 // About api
 
