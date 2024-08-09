@@ -39,6 +39,7 @@ const serviceController = require("../controllers/ngo/service/serviceController"
 //auth api
 router.post("/sign-up", authController.signUp);
 router.get("/sign-in", authController.signIn );
+router.get("/logout", authController.logout );
 
 
 // user api
