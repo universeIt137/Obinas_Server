@@ -5,7 +5,7 @@ class aboutClass {
     postAbout = async (req,res)=>{
         const userToken = parseUserToken(req);
         try {
-            if (userToken.role==="super-admin"){
+            if (userToken.role==="admin"){
                 let reqBody = req.body;
                 let data = await aboutUsModel.create(reqBody);
                 return res.status(201).json({
@@ -25,40 +25,6 @@ class aboutClass {
             });
         }
     };
-    updateAbout = async (req,res)=>{
-        let userToken = parseUserToken(req);
-        try {
-            let id = req.params.id;
-            let filter = {
-                _id : id
-            };
-            let reqBody = req.body;
-            let aboutData = await aboutUsModel.findById(filter);
-            if (!aboutData) return res.status(404).json({
-                status : "fail",
-                msg :  "About data not found"
-            });
-
-            if (userToken.role==="super-admin"){
-                await aboutUsModel.findByIdAndUpdate(filter,reqBody);
-                return res.status(200).json({
-                    status : "success",
-                    data : "Update successfully"
-                });
-            }else {
-                return res.status(403).json({
-                    status : "fail",
-                    msg : "Permission not granted"
-                });
-            }
-
-        }catch (e) {
-            return res.status(500).json({
-                status : "fail",
-                msg : "Something went worng"
-            });
-        }
-    };
     deleteAbout = async (req,res)=>{
         let userToken = parseUserToken(req);
         try {
@@ -72,7 +38,7 @@ class aboutClass {
                 msg : "Data not found"
             });
 
-            if (userToken.role==="super-admin"){
+            if (userToken.role==="admin"){
                 await aboutUsModel.findByIdAndDelete(filter);
                 return res.status(200).json({
                     status : "success",
@@ -105,29 +71,6 @@ class aboutClass {
             });
         }
     };
-    allAboutDataAdmin = async (req,res)=>{
-        const parseToken = parseUserToken(req);
-        try {
-            if (parseToken.role==="super-admin"){
-                let data = await aboutUsModel.find();
-                return res.status(200).json({
-                    status : "success",
-                    data : data
-                });
-            }else {
-                return res.status(403).json({
-                    status : "fail",
-                    msg : "Permission not allow"
-                });
-            }
-        }catch (e) {
-            return res.status(500).json({
-                status : "fail",
-                msg : "Something went worng"
-            });
-        }
-    };
-
 }
 
 const aboutController = new aboutClass();

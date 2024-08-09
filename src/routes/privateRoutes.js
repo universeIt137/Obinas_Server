@@ -56,10 +56,8 @@ router.delete("/delete-concern/:id", authMiddleware.isValidUser, concernControll
 
 // About api
 
-router.post("/post-about" , authMiddleware.isSuperAdmin, aboutController.postAbout);
-router.put("/update-about/:id" , authMiddleware.isSuperAdmin, aboutController.updateAbout);
-router.delete("/delete-about/:id" , authMiddleware.isSuperAdmin, aboutController.deleteAbout);
-router.get("/about-data-admin", authMiddleware.isSuperAdmin, aboutController.allAboutDataAdmin);
+router.post("/post-about" , authMiddleware.isValidUser, aboutController.postAbout);
+router.delete("/delete-about/:id" , authMiddleware.isValidUser, aboutController.deleteAbout);
 
 // User api
 
