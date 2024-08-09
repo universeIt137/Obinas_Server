@@ -89,6 +89,7 @@ router.delete("/delete-notice/:id", authMiddleware.isValidUser, noticeController
 // service api
 
 router.post("/create-service", authMiddleware.isValidUser, serviceController.createService);
+router.delete("/delete-service/:id" , authMiddleware.isValidUser, serviceController.deleteService);
 
 
 module.exports = router;

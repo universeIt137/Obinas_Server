@@ -68,7 +68,38 @@ class serviceClass {
             });
         }
     };
-    
+    deleteService = async (req,res)=>{
+        const userToken = parseUserToken(req);
+        try {
+            let id = req.params.id;
+            let filter = { _id: id };
+            let data = await serviceModel.findById(filter);
+            if (!data) return res.status(404).json({
+                status : "fail",
+                msg : "Service not found"
+            });
+
+            if (userToken.role==="admin"){
+                await serviceModel.findByIdAndDelete(filter);
+                return res.status(200).json({
+                    status : "success",
+                    msg : "Service delete successfully"
+                });
+            }else {
+                return res.status(403).json({
+                    status : "success",
+                    msg : "Permission not granted"
+                });
+            }
+
+        }catch (e) {
+            return res.status(500).json({
+                status : "fail",
+                msg : e.toString()
+            });
+        }
+    };
+
 
 }
 
