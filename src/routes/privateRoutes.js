@@ -35,16 +35,13 @@ const serviceController = require("../controllers/ngo/service/serviceController"
 // applay service controller
 
 const applayServiceController = require("../controllers/ngo/applayService/applayServiceController");
-const {isValidUser} = require("../middlewares/authMiddleware");
 
 const router = express.Router();
 
 // News api
 
-router.post("/post-news" , authMiddleware.isSuperAdmin, newsController.postNews );
-router.put("/update-news/:id" , authMiddleware.isSuperAdmin, newsController.updateNews);
-router.delete("/delete-news/:id", authMiddleware.isSuperAdmin, newsController.deleteNews);
-router.get("/get-all-data-admin", authMiddleware.isSuperAdmin, newsController.getAllNewsAdmin);
+router.post("/post-news" , authMiddleware.isValidUser, newsController.postNews );
+router.delete("/delete-news/:id", authMiddleware.isValidUser, newsController.deleteNews);
 
 
 // Media api

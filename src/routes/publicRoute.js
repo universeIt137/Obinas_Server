@@ -54,6 +54,7 @@ router.get("/all-concern-data", concernController.getAllConcern);
 
 // news api
 router.get("/all-news", newsController.getAllNews );
+router.get("/get-single-news/:id" , newsController.getSingleNews );
 
 // media api
 router.get("/get-all-media" , mediaController.getAllMedia );

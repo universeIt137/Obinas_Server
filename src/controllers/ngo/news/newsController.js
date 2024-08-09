@@ -17,7 +17,7 @@ class newsClass {
                     msg : "Keyword required"
                 });
             }else {
-                if ((userToken.role==="super-admin") ){
+                if ((userToken.role==="admin") ){
                     let reqBody = req.body;
                     let data = await newsModel.create(reqBody);
                     return res.status(201).json({
@@ -39,38 +39,6 @@ class newsClass {
             });
         }
     };
-    updateNews = async (req,res)=>{
-        const userToken = parseUserToken(req);
-        try {
-            const id = req.params.id;
-            const matchStage = {
-                _id : id
-            };
-            const reqBody = req.body;
-            let data = await newsModel.findById(matchStage);
-            if (!data) return res.status(404).json({
-                status : "success",
-                msg : "Data not found"
-            });
-            if ( userToken.role==="super-admin" ){
-                await newsModel.findByIdAndUpdate(matchStage,reqBody);
-                return res.status(200).json({
-                    status : "success",
-                    msg : `Update successfully`
-                });
-            }else {
-                return res.status(403).json({
-                    status : "fail",
-                    msg : 'Permission not granted'
-                });
-            }
-        }catch (e) {
-            return res.status(500).json({
-                status : "fail",
-                msg : e.toString()
-            });
-        }
-    };
     deleteNews = async (req,res)=>{
         const userToken = parseUserToken(req);
         try {
@@ -83,7 +51,7 @@ class newsClass {
                 status : "fail",
                 msg : "Data not found "
             });
-            if (userToken.role==="super-admin"){
+            if (userToken.role==="admin"){
                 await newsModel.findByIdAndDelete(matchStage);
                 return res.status(200).json({
                     status : 'success',
@@ -123,31 +91,25 @@ class newsClass {
             });
         }
     };
-    getAllNewsAdmin = async (req,res)=>{
+
+    getSingleNews = async (req,res)=>{
         try {
-            let userToken = parseUserToken(req);
-            let data = await newsModel.find();
-            if ( data.length===0 ) return res.status(404).json({
-                status : 'fail',
-                msg : "Data not found"
-            });
-            if (userToken.role==="super-admin"){
-                let data = await newsModel.find();
+            let id = req.params.id;
+            let filter = { _id: id };
+            let data =  await newsModel.findById(filter);
+            if (!data){
+                return res.status(404).json({
+                    status : "fail",
+                    msg : "News not found "
+                });
+            }else {
                 return res.status(200).json({
                     status : "success",
                     data : data
                 });
-            }else {
-                return res.status(403).json({
-                    status : "fail",
-                    msg : "Permission not allow "
-                });
             }
         }catch (e) {
-            return res.status(500).json({
-                status : 'fail',
-                msg : e.toString()
-            });
+            
         }
     }
 
