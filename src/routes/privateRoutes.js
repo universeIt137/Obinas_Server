@@ -28,6 +28,10 @@ const jobCircularController = require("../controllers/ngo/jobCircular/jobCircula
 
 const noticeController = require("../controllers/ngo/notice/noticeController");
 
+// service controller
+
+const serviceController = require("../controllers/ngo/service/serviceController");
+
 const router = express.Router();
 
 // News api
@@ -81,6 +85,10 @@ router.delete("/job-circular-delete/:id" , authMiddleware.isValidUser, jobCircul
 
 router.post("/post-notice", authMiddleware.isValidUser, noticeController.postNotice);
 router.delete("/delete-notice/:id", authMiddleware.isValidUser, noticeController.deleteNotice);
+
+// service api
+
+router.post("/create-service", authMiddleware.isValidUser, serviceController.createService);
 
 
 module.exports = router;
