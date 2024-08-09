@@ -2,6 +2,7 @@ const userModel = require("../../../models/ngo/userModel");
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const jwt = require("jsonwebtoken");
+const {parseUserToken} = require("../../../helper/helper");
 
 class authClass {
     signUp = async (req,res)=>{
@@ -93,7 +94,29 @@ class authClass {
                 msg : "something went worng"
             });
         }
-    }
+    };
+
+    logout = async (req,res)=>{
+        const userToken = parseUserToken(req)
+        try {
+            const filter = { email: userToken.email }
+            const update = {token:""}
+            let resp = await userModel.findOneAndUpdate(filter,update,{new:true});
+            delete req.headers.authorization;
+            return res.status(200).json({
+                status : "success",
+                data : resp,
+                msg : "User logout successfully"
+            });
+        }catch (e) {
+            return res.status(500).json({
+                status :"fail",
+                msg : e.toString()
+            });
+        }
+    };
+
+
 }
 
 const authController = new authClass();
